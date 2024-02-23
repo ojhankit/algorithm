@@ -36,13 +36,15 @@ int partition(int array[], int start, int end)
     return i;
 }
 
-void quicksort(int array[], int start, int end)
+void quicksort(int array[], int start, int end, FILE *file)
 {
     if (start < end)
     {
         int pivot = partition(array, start, end);
-        quicksort(array, start, pivot - 1);
-        quicksort(array, pivot + 1, end);
+        fprintf(file, "pivot:%d", array[pivot]);
+        fprintf(file, "\n");
+        quicksort(array, start, pivot - 1, file);
+        quicksort(array, pivot + 1, end, file);
     }
 }
 void generatePermutations(int array[], int start, int end, FILE *file)
@@ -61,7 +63,7 @@ void generatePermutations(int array[], int start, int end, FILE *file)
         {
             temp[i] = array[i];
         }
-        quicksort(temp, 0, end);
+        quicksort(temp, 0, end, file);
         fprintf(file, "no of comparison:%d", compare);
         fprintf(file, "\n");
         free(temp);
